@@ -23,7 +23,7 @@ public class CategoryDetailsTest {
         softAssert = new SoftAssert();
 
         CategoryDetailsData categoryDetailsData =
-                new CategoryDetailsData("src/test/resources/DetailsCatalogueFalseData.json");
+                new CategoryDetailsData(Constants.DETAILS_CATALOGUE_FALSE_DATA);
 
         String response =
                 given()
