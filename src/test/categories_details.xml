@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="API Test" verbose="1" configfailurepolicy="continue" parallel="false" thread-count="1">
+    <test name="API Automation Category Details">
+        <groups>
+            <run>
+                <include name="CategoryDetails"/>
+            </run>
+        </groups>
+        <classes>
+           <class name="tests.CategoryDetailsTest"></class>
+        </classes>
+    </test>
+</suite>
