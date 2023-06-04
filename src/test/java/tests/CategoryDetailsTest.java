@@ -42,8 +42,8 @@ public class CategoryDetailsTest {
 
         softAssert.assertEquals(responseValidationUtil.getValueForKey(response, "Name"),
                 "Carbon credits", "Name mismatch");
-        softAssert.assertEquals(Boolean.parseBoolean(responseValidationUtil.getValueForKey(response, "CanRelist")),
-                true, "The value for CanRelist is not true");
+        softAssert.assertTrue(Boolean.parseBoolean(responseValidationUtil.getValueForKey(response, "CanRelist")),
+                "The value for CanRelist is not true");
         softAssert.assertEquals(responseValidationUtil.getValueForJSONObjectFromArray(response,
                         "Promotions", 1, "Description"), "Good position in category",
                 "Description for Gallery promotions is not correct");
