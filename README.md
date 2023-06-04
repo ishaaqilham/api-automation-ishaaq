@@ -3,7 +3,7 @@
 ## Introduction
 
 * This project is a Maven-Java project created for API automation
-* This repo uses RestAssured as the main tools for API automation
+* This repo uses RestAssured as the main tool for API automation
 * This project could be founded in: https://github.com/ishaaqilham/api-automation-ishaaq
 
 ## Getting started
