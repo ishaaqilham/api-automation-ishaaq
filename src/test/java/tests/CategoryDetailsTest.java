@@ -4,10 +4,10 @@ import common.Constants;
 import common.ResponseCodes;
 import data.CategoryDetailsData;
 import io.restassured.http.ContentType;
-import org.json.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import util.ResponseValidationUtil;
 
 import java.io.IOException;
 
@@ -15,12 +15,13 @@ import static io.restassured.RestAssured.given;
 
 public class CategoryDetailsTest {
     SoftAssert softAssert;
-    JSONObject jsonObject;
+    ResponseValidationUtil responseValidationUtil;
 
     @Test(description = "Verify retrieval of category details", alwaysRun = true, priority = 1,
             groups = {"CategoryDetails"})
     public void testGetValidCategoryDetails() throws IOException, ParseException {
         softAssert = new SoftAssert();
+        responseValidationUtil = new ResponseValidationUtil();
 
         CategoryDetailsData categoryDetailsData =
                 new CategoryDetailsData(Constants.DETAILS_CATALOGUE_FALSE_DATA);
@@ -39,14 +40,12 @@ public class CategoryDetailsTest {
                         .statusCode(ResponseCodes.RESPONSE_CODE_200)
                         .extract().asString();
 
-        jsonObject = new JSONObject(response);
-
-        softAssert.assertEquals(jsonObject.get("Name"), "Carbon credits", "Name mismatch");
-        softAssert.assertEquals(jsonObject.get("CanRelist"), true, "The value for CanRelist is not true");
-
-        jsonObject = new JSONObject(jsonObject.getJSONArray("Promotions").get(1).toString());
-
-        softAssert.assertEquals(jsonObject.get("Description"), "Good position in category",
+        softAssert.assertEquals(responseValidationUtil.getValueForKey(response, "Name"),
+                "Carbon credits", "Name mismatch");
+        softAssert.assertEquals(Boolean.parseBoolean(responseValidationUtil.getValueForKey(response, "CanRelist")),
+                true, "The value for CanRelist is not true");
+        softAssert.assertEquals(responseValidationUtil.getValueForJSONObjectFromArray(response,
+                        "Promotions", 1, "Description"), "Good position in category",
                 "Description for Gallery promotions is not correct");
 
         softAssert.assertAll();
